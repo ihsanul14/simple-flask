@@ -1,5 +1,6 @@
 from pydantic import ValidationError
 
+
 def Validate(data, models):
     try:
         models.parse_obj(data)

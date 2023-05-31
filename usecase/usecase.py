@@ -25,7 +25,7 @@ def get_data_by_id(data):
         data)
     project = repository.get_data_by_id(data)
     result = list_project(result, project)
-    result['data'] = result['data'][0]
+    result['data'] = result['data']
     return result
 
 

@@ -18,7 +18,7 @@ def get_data_by_id(data):
     result = {}
     Session = sessionmaker(bind=conn)
     session = Session()
-    result = session.query(Project).filter(Project.project_id == data).all()
+    result = session.query(Project).filter(Project.project_id == data).one()
     session.close()
     return result
 
@@ -48,7 +48,7 @@ def update_data(data):
 def delete_data(data):
     Session = sessionmaker(bind=conn)
     session = Session()
-    query = session.query(Project).filter(Project.project_id == data).first()
+    query = session.query(Project).filter(Project.project_id == data).one()
     session.delete(query)
     session.commit()
     session.close()
