@@ -1,1 +1,1 @@
-from framework.database.database import connect_pg
+from .database import Database

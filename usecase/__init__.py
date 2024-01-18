@@ -1,1 +1,1 @@
-import usecase.usecase as project_handler
+from .usecase import Usecase

@@ -1,4 +1,5 @@
-import json
+from models.models import Project
+from typing import List
 
 
 def resp(data):
@@ -12,14 +13,7 @@ def resp(data):
     return res
 
 
-def except_response(data, err):
-    print(err)
-    data['code'] = 500
-    data['message'] = err.args[0]
-    return data
-
-
-def list_project(data, projects):
+def list_project(data, projects: List[Project]):
     for project in projects:
         result = {}
         result['project_id'] = project.project_id
@@ -27,3 +21,10 @@ def list_project(data, projects):
         data['data'].append(result)
     return data
 
+
+def refactored_project_by_id(project: Project):
+    res = {
+        'project_id': project.project_id,
+        'project_name': project.project_name
+    }
+    return res

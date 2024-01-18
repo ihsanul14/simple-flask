@@ -1,11 +1,11 @@
 import os
 from flask import Flask
 import dotenv
-from framework.delivery.http.http import delivery_http
+from framework.delivery import Delivery
 
 
 app = Flask(__name__)
-delivery_http(app)
+delivery = Delivery(app).delivery_http()
 dotenv.load_dotenv()
 
 
