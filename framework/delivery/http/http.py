@@ -1,7 +1,7 @@
 from usecase import Usecase
 from flask import Response, abort, request, Flask
 import json
-from framework.validator.validator import Validate
+from framework.validator import Validator
 from models.models import UpdateProjectRequest
 from framework.error.error import Error
 
@@ -9,6 +9,7 @@ router_group = "/api/v1/project"
 
 
 class Delivery:
+    validator = Validator()
     error = Error()
     usecase = Usecase
 
@@ -50,8 +51,10 @@ class Delivery:
         def update_project(id):
             try:
                 request.json['project_id'] = id
-                if Validate(request.json, UpdateProjectRequest):
-                    return Response(json.dumps({'message': str(Validate(request.json, UpdateProjectRequest))}), status=400, content_type='application/json')
+                validate_err = self.validator.Validate(
+                    request.json, UpdateProjectRequest)
+                if validate_err:
+                    return Response(json.dumps({'message': str(validate_err)}), status=400, content_type='application/json')
                 response = self.usecase.project_handler.update_data(
                     request.json)
                 return Response(json.dumps(response), status=response['code'], content_type='application/json')
